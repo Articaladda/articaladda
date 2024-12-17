@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideal Weight Calculator</title>
+    <link rel="stylesheet" href="ideal.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Ideal Weight Calculator</h1>
+        <a href="index.html" class="back-button">Back to Home</a>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>Find Your Ideal Weight</h2>
+            <div class="ideal-weight-form">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter your height in cm" required>
+                
+                <label for="gender">Gender:</label>
+                <select id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                
+                <button onclick="calculateIdealWeight()">Calculate Ideal Weight</button>
+                
+                <div id="result" class="result">
+                    <!-- The ideal weight result will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Fit Now. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateIdealWeight() {
+            var height = parseFloat(document.getElementById("height").value);
+            var gender = document.getElementById("gender").value;
+
+            if (!height) {
+                alert("Please enter a valid height.");
+                return;
+            }
+
+            // Convert height to meters
+            height = height / 100;
+
+            // BMI for Ideal Weight is between 18.5 and 24.9
+            var lowerIdealBMI = 18.5;
+            var upperIdealBMI = 24.9;
+
+            // Calculate ideal weight range
+            var lowerIdealWeight = lowerIdealBMI * height * height;
+            var upperIdealWeight = upperIdealBMI * height * height;
+
+            var result = document.getElementById("result");
+            result.innerHTML = `<p>Your ideal weight range is between <strong>${lowerIdealWeight.toFixed(2)} kg</strong> and <strong>${upperIdealWeight.toFixed(2)} kg</strong>.</p>`;
+        }
+    </script>
+</body>
+</html>

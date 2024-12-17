@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calories Calculator</title>
+    <link rel="stylesheet" href="kal.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Calories Calculator</h1>
+        <a href="index.html" class="back-button">Back to Home</a>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>Calculate Your Daily Calorie Needs</h2>
+            <div class="calories-form">
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" placeholder="Enter your age" required>
+                
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" placeholder="Enter your weight in kg" required>
+                
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter your height in cm" required>
+                
+                <label for="gender">Gender:</label>
+                <select id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                
+                <label for="activity">Activity Level:</label>
+                <select id="activity">
+                    <option value="sedentary">Sedentary (little or no exercise)</option>
+                    <option value="light">Lightly active (light exercise or sports 1-3 days/week)</option>
+                    <option value="moderate">Moderately active (moderate exercise or sports 3-5 days/week)</option>
+                    <option value="active">Very active (hard exercise or sports 6-7 days a week)</option>
+                    <option value="extra">Extra active (very hard exercise, physical job, or training twice a day)</option>
+                </select>
+                
+                <button onclick="calculateCalories()">Calculate Calories</button>
+                
+                <div id="result" class="result">
+                    <!-- The calorie result will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Fit Now. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateCalories() {
+            var age = parseInt(document.getElementById("age").value);
+            var weight = parseFloat(document.getElementById("weight").value);
+            var height = parseFloat(document.getElementById("height").value);
+            var gender = document.getElementById("gender").value;
+            var activity = document.getElementById("activity").value;
+
+            if (!age || !weight || !height) {
+                alert("Please enter valid values for age, weight, and height.");
+                return;
+            }
+
+            // Harris-Benedict equation to calculate BMR (Basal Metabolic Rate)
+            var bmr;
+            if (gender === "male") {
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            } else {
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            }
+
+            // Adjust for activity level
+            var calorieMultiplier;
+            switch (activity) {
+                case "sedentary":
+                    calorieMultiplier = 1.2;
+                    break;
+                case "light":
+                    calorieMultiplier = 1.375;
+                    break;
+                case "moderate":
+                    calorieMultiplier = 1.55;
+                    break;
+                case "active":
+                    calorieMultiplier = 1.725;
+                    break;
+                case "extra":
+                    calorieMultiplier = 1.9;
+                    break;
+            }
+
+            var totalCalories = bmr * calorieMultiplier;
+
+            var result = document.getElementById("result");
+            result.innerHTML = `<p>Your daily calorie needs are: <strong>${totalCalories.toFixed(2)}</strong> calories per day.</p>`;
+        }
+    </script>
+</body>
+</html>

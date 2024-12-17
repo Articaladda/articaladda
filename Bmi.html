@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="bi.css">
+</head>
+<body>
+    <header class="header">
+        <h1>BMI Calculator</h1>
+        <a href="index.html" class="back-button">Back to Home</a>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>Calculate Your BMI</h2>
+            <div class="bmi-form">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" placeholder="Enter your weight in kg" required>
+                
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter your height in cm" required>
+                
+                <button onclick="calculateBMI()">Calculate BMI</button>
+                
+                <div id="result" class="result">
+                    <!-- The BMI result will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Fit Pro. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateBMI() {
+            var weight = parseFloat(document.getElementById("weight").value);
+            var height = parseFloat(document.getElementById("height").value) / 100; // Convert height to meters
+
+            if (!weight || !height) {
+                alert("Please enter valid values for weight and height.");
+                return;
+            }
+
+            var bmi = weight / (height * height); // BMI formula
+            var result = document.getElementById("result");
+
+            result.innerHTML = `<p>Your BMI is: <strong>${bmi.toFixed(2)}</strong></p>`;
+            
+            if (bmi < 18.5) {
+                result.innerHTML += "<p>You are underweight.</p>";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                result.innerHTML += "<p>Your weight is normal.</p>";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                result.innerHTML += "<p>You are overweight.</p>";
+            } else {
+                result.innerHTML += "<p>You are obese.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
